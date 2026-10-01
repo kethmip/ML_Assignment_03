@@ -1,7 +1,9 @@
-name: Model Tests
+name: Model Tests and Deploy
 
 on:
   push:
+    branches:
+      - main
 
 jobs:
   test:
@@ -21,3 +23,13 @@ jobs:
 
       - name: Run unit tests
         run: pytest test_model.py -v
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to Render
+        env:
+          RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: curl -fsS -X POST "$RENDER_DEPLOY_HOOK"
