@@ -17,7 +17,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install numpy cloudpickle pytest
+        run: pip install numpy cloudpickle pytest matplotlib
 
       - name: Run unit tests
         run: pytest test_model.py -v
